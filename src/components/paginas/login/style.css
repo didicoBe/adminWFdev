@@ -1,0 +1,13 @@
+.centroLogin{
+    display:flex;
+    justify-content:center;
+    align-content:center;
+    margin:0;
+    padding: 13px;
+    text-align:right;
+}
+.imgLogin{
+    width: 200px;
+}
+
+
