@@ -105,7 +105,7 @@ export default class Login extends Component {
     }
 
 
-    UNSAFE_componentWillMount(){
+    componentDidMount(){
         this.validaOnline()
     }
 

@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import {Container  } from 'react-bootstrap';
 import Topo from "../../topo";
 import  api from "../../../service";
-import { ToastContainer ,toast } from "react-toastify";
 
-export default class Dash extends Component {
 
+
+
+export default class ConfigUser extends Component {
     state ={
         logado: true,
         nome:''
@@ -34,16 +34,7 @@ export default class Dash extends Component {
                     logado: true,
                     nome:nome
                 })
-                toast.success('😁 Seja bem vindo(a) '+nome, {
-                    position: "top-center",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    });
-
+               
                 return  true
             }).catch((erro)=>{
                 this.setState({
@@ -73,24 +64,12 @@ export default class Dash extends Component {
     }
 
     render() {
-        
-        if(this.state.logado === false){
-
-            this.props.history.push('/')
-            return null
-        }else{
-            return (
-                <div>
-                    <ToastContainer/>
-                    <Topo
-                        nome={this.state.nome}
-                    />
-                    <Container>
-                        Dash
-                    </Container>
-                </div>
-            )
-        }
-        
+        return (
+            <div>
+                <Topo
+                    nome={this.state.nome}
+                />
+            </div>
+        )
     }
 }
