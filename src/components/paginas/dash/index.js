@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {Container  } from 'react-bootstrap';
 import Topo from "../../topo";
+import SideBar from "../../sidebar";
 import  api from "../../../service";
 import { ToastContainer ,toast } from "react-toastify";
 
@@ -80,12 +81,14 @@ export default class Dash extends Component {
             return null
         }else{
             return (
-                <div>
+                <div style={{marginTop:'66px', display:'flex'}}>
                     <ToastContainer/>
                     <Topo
                         nome={this.state.nome}
                     />
-                    <Container>
+                    <SideBar/>
+                    <Container fluid>
+                        
                         Dash
                     </Container>
                 </div>

@@ -5,11 +5,7 @@ import SideBar from "../../sidebar";
 import  api from "../../../service";
 import { ToastContainer ,toast } from "react-toastify";
 
-
-
-
-
-export default class ConfigUser extends Component {
+export default class NomeClasse extends Component {
     state ={
         logado: true,
         nome:''
@@ -34,6 +30,15 @@ export default class ConfigUser extends Component {
                     logado: true,
                     nome:nome
                 })
+                toast.success('😁 Seja bem vindo(a) '+nome, {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    });
                 return  true
             }).catch((erro)=>{
                 this.setState({
