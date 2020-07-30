@@ -2,6 +2,7 @@
   "name": "admin",
   "version": "0.1.0",
   "private": true,
+  "baseURL": "http://wfdesenvolvimento.com.br/admin/",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
     "@fortawesome/free-brands-svg-icons": "^5.14.0",
@@ -19,6 +20,7 @@
     "react-pro-sidebar": "^0.4.3",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
+    "react-table-v6": "^6.8.6",
     "react-toastify": "^6.0.8"
   },
   "scripts": {

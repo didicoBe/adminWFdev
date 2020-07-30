@@ -3,13 +3,9 @@ import {Container  } from 'react-bootstrap';
 import Topo from "../../topo";
 import SideBar from "../../sidebar";
 import  api from "../../../service";
-import { ToastContainer } from "react-toastify";
+//import { ToastContainer ,toast } from "react-toastify";
 
-
-
-
-
-export default class ConfigUser extends Component {
+export default class NovoOrcamento extends Component {
     state ={
         logado: true,
         nome:''
@@ -62,13 +58,12 @@ export default class ConfigUser extends Component {
         }else{
             return (
                 <div style={{marginTop:'66px', display:'flex'}}>
-                    <ToastContainer/>
                     <Topo
                         nome={this.state.nome}
                     />
                     <SideBar/>
                     <Container fluid>
-                        conteudo aqui
+                        novo orcamento
                     </Container>
                 </div>
             )

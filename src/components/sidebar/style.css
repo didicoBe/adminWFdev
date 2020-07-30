@@ -2,3 +2,6 @@
     position: absolute;
     height: 93%;
 }
+.pro-sidebar > .pro-sidebar-inner {
+    overflow: hidden;
+}
