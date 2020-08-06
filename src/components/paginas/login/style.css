@@ -11,3 +11,23 @@
 }
 
 
+.fundo{
+    background-color: #fff0 !important;
+    background-image: radial-gradient(#501e58, #44144c, black)!important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    -webkit-background-size: cover !important;
+    -moz-background-size: cover !important;
+    -o-background-size: cover !important;
+    height: 100%  !important; 
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+
+    /* Preserve aspet ratio */
+    min-width: 100%;
+    min-height: 100%;
+}

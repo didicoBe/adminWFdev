@@ -116,7 +116,7 @@ export default class Login extends Component {
 
     if(this.state.logado === false){
         return (
-            <div style={{marginTop:'150px'}}>
+            <div style={{paddingTop:'150px'}} className="fundo">
                 <ToastContainer/>
                 <div className="centroLogin">
                     <img src="/img/LogoNEGATIVO2.png" className='imgLogin' alt="WfDev" />

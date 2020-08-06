@@ -2,6 +2,22 @@
   
  
 }
-body {
-  background-color: #495057 !important;
+/* html {
+  height:100% !important;
+}
+body{
+  background-color: #fff0 !important;
+  background-image: radial-gradient(#501e58, #44144c, black)!important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    -webkit-background-size: cover !important;
+    -moz-background-size: cover !important;
+    -o-background-size: cover !important;
+    
+} */
+
+
+body, html {
+  height: 100% !important;
+  margin: 0 !important;
 }

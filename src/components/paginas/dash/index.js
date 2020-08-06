@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
-import {Container  } from 'react-bootstrap';
+import {Container, Card  } from 'react-bootstrap';
 import Topo from "../../topo";
 import SideBar from "../../sidebar";
 import  api from "../../../service";
 import { ToastContainer ,toast } from "react-toastify";
+
+
+import './style.css'
 
 export default class Dash extends Component {
 
@@ -88,8 +91,9 @@ export default class Dash extends Component {
                     />
                     <SideBar/>
                     <Container fluid>
-                        
-                        Dash
+                        <Card className="cartaobase">
+
+                        </Card>
                     </Container>
                 </div>
             )

@@ -80,7 +80,10 @@ export default class SideBar extends Component {
                                 Dashboard
                                 <Link to="/dash" />
                             </MenuItem>
-                            <MenuItem icon={<FontAwesomeIcon icon={faFireAlt} color="white"/>}>Clientes</MenuItem>
+                            <MenuItem icon={<FontAwesomeIcon icon={faFireAlt} color="white"/>}>
+                                Clientes
+                                <Link to="/clientes" />
+                            </MenuItem>
                             <MenuItem icon={<FontAwesomeIcon icon={faTicketAlt} color="white"/>}>Suporte</MenuItem>
                             <MenuItem icon={<FontAwesomeIcon icon={faMoneyBillWave} color="white"/>}>Financeiro</MenuItem>
                             <SubMenu title="Orçamentos" icon={<FontAwesomeIcon icon={faWpforms} color="white"/>}>

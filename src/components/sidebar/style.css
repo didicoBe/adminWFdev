@@ -1,5 +1,5 @@
 .pro-sidebar{
-    position: absolute;
+    position: fixed;
     height: 93%;
 }
 .pro-sidebar > .pro-sidebar-inner {

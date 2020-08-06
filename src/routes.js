@@ -5,6 +5,10 @@ import Dash from "../src/components/paginas/dash";
 import ConfigUser from "../src/components/paginas/configUser";
 import Orcamento from "../src/components/paginas/orcamento";
 import NovoOrcamento from "../src/components/paginas/orcamento/novo";
+import OrcamentoVisualizar from "../src/components/paginas/orcamento/visualizar";
+import Clientes from "../src/components/paginas/clientes";
+import Novocliente from "../src/components/paginas/clientes/novo";
+import Visualizarcliente from "../src/components/paginas/clientes/visualizar";
 
 const Routes = ()=>(
     <div>
@@ -15,6 +19,10 @@ const Routes = ()=>(
                 <Route exact path="/configuser" component={ConfigUser}></Route>
                 <Route exact path="/orcamento" component={Orcamento}></Route>
                 <Route exact path="/novoorcamento" component={NovoOrcamento}></Route>
+                <Route exact path="/orcamento/visualizar/:id" component={OrcamentoVisualizar}></Route>
+                <Route exact path="/clientes" component={Clientes}></Route>
+                <Route exact path="/clientes/:id" component={Visualizarcliente}></Route>
+                <Route exact path="/novocliente" component={Novocliente}></Route>
             </Switch>
         </BrowserRouter>
     </div>

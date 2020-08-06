@@ -1,8 +1,31 @@
 .titulos{
-    color: #ffffff;
-    padding-top: 25px;
-    padding-left: 15px;
+    
+    color: #0c0b0b;
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-weight: 400;
 }
 .ReactTable{
     background-color: #f1f1f1;
+}
+
+
+.cartaoorcamento{
+    margin-top: 25px;
+    padding: 15px;
+}
+
+.historicoOrcamento{
+    margin-top: 15px;
+}
+.basehistoricoOrcamento{
+    max-height: 350px;
+    overflow: auto;
+    padding-right: 10px;
+}
+
+.btn-wf{
+    color: #fff;
+    background-color: #7b347f !important;
+    border-color: #7b347f !important;
 }

@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import {Container  } from 'react-bootstrap';
+import {Container,Card,Button  } from 'react-bootstrap';
 import Topo from "../../topo";
 import SideBar from "../../sidebar";
 import  api from "../../../service";
 import { ToastContainer ,toast } from "react-toastify";
+import { Link } from 'react-router-dom';
 
 export default class NomeClasse extends Component {
     state ={
@@ -64,7 +65,14 @@ export default class NomeClasse extends Component {
                     />
                     <SideBar/>
                     <Container fluid>
-                        conteudo aqui
+                        <Card className="cartaoorcamento">
+                            <div style={{display:'flex', justifyContent:'space-between',alignContent:'center',alignItems:'center'}}>
+                                <div className='titulos'>Titulo.</div>
+                                <div>
+                                    <Button className="btn-wf float-right">btn</Button>
+                                </div>
+                            </div>
+                        </Card>
                     </Container>
                 </div>
             )

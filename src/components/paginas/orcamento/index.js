@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Container, Row, Col  } from 'react-bootstrap';
+import {Container, Button, Card  } from 'react-bootstrap';
 import Topo from "../../topo";
 import SideBar from "../../sidebar";
 import  api from "../../../service";
@@ -60,8 +60,6 @@ export default class Orcamento extends Component {
     pegadadosOrcamento = ()=>{
         var resposta = false
         resposta = api.get('/orcamento').then(response=>{
-            console.log(response.data)
-            
             this.setState({
                 data:response.data
             })
@@ -79,8 +77,15 @@ export default class Orcamento extends Component {
     }
 
 
+    abrepagina = (id)=>{
+        return(
+            this.props.history.push('/orcamento/visualizar/'+id)
+        )
+    }
+
 
     render() {
+        // dados e colunas da tabela
         const data = this.state.data
         const colunas = [{
             Header: 'Nome',
@@ -100,11 +105,18 @@ export default class Orcamento extends Component {
             accessor: 'tipodev'
         }, {
             Header: 'Visualizar', 
+            accessor:'id',
+            Cell:  props  => (
+                <Button 
+                    variant="secondary" 
+                    value={props.value} 
+                    onClick={()=>{this.abrepagina(props.value)}} 
+                    style={{marginLeft:'20px'}}
+                >
+                  Visualizar
+                </Button>
+              )
         }]
-
-
-
-
 
 
         if(this.state.logado === false){
@@ -119,30 +131,33 @@ export default class Orcamento extends Component {
                     />
                     <SideBar/>
                     <Container fluid>
-                        <h5 className="titulos">Orçamentos recebidos pelo site</h5>
-                        <ReactTable
-                            filterable
-                            data={data}
-                            columns={colunas}
-                            defaultPageSize={10}
-                            previousText='Anterior'
-                            nextText='Próximo'
-                            pageText="página"
-                            rowsText="linhas"
-                            defaultFilterMethod={(filter, row, column) => {
-                                const id = filter.pivotId || filter.id;
-                                if (typeof filter.value === "object") {
-                                  return row[id] !== undefined
-                                    ? filter.value.indexOf(row[id]) > -1
-                                    : true;
-                                } else {
-                                  return row[id] !== undefined
-                                    ? String(row[id]).indexOf(filter.value) > -1
-                                    : true;
-                                }
-                              }}
-                            className="-striped -highlight"
-                        />
+                        <Card className="cartaoorcamento">
+                            <h5 className="titulos">Orçamentos recebidos pelo site</h5>
+                            <ReactTable
+                                data={data}
+                                columns={colunas}
+                                defaultPageSize={10}
+                                previousText='Anterior'
+                                nextText='Próximo'
+                                pageText="página"
+                                rowsText="linhas"
+                                filterable
+                                defaultFilterMethod={(filter, row, column) => {
+                                    const id = filter.pivotId || filter.id;
+                                    if (typeof filter.value === "object") {
+                                    return row[id] !== undefined
+                                        ? filter.value.indexOf(row[id]) > -1
+                                        : true;
+                                    } else {
+                                    return row[id] !== undefined
+                                        ? String(row[id]).indexOf(filter.value) > -1
+                                        : true;
+                                    }
+                                }}
+                                className="-striped -highlight"
+                            />
+                        </Card>
+                        
                     </Container>
                 </div>
             )
