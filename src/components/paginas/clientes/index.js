@@ -101,11 +101,11 @@ export default class Clientes extends Component {
                                 </div>
                             </div>
                             <div style={{marginTop:'60px'}}>
-                                <div style={{display:'flex',justifyContent:'space-between'}}>
+                                <div style={{display:'flex',justifyContent:'space-between', fontWeight:'600', color:'#7b347f'}}>
                                     <div style={{width:150}}>Nome Fantasia</div>
                                     <div style={{width:150}}>Nome Razao social</div>
                                     <div style={{width:150}}>Nome responsavel</div>
-                                    <div style={{width:100}}>editar</div>
+                                    <div style={{width:100}}>Visualizar</div>
                                 </div>
                                 
 

@@ -71,7 +71,7 @@ export default class SideBar extends Component {
             )
         }else{
             return (
-                <div style={{marginRight:'270px'}}>
+                <div style={{marginRight:'270px'}} className="d-none d-md-block">
                     <ProSidebar >
                         <SidebarContent>
                        

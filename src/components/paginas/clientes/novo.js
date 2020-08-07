@@ -224,7 +224,7 @@ export default class Novocliente extends Component {
                                     </Form.Row>
 
 
-                                    <h5 style={{marginTop:20}}>Dados do responsavel</h5>
+                                    <h5 style={{marginTop:20}}>Dados de Endereço</h5>
                                     <hr/>
                                     <Form.Row>
                                         <Form.Group as={Col} controlId="formGridEmail">
