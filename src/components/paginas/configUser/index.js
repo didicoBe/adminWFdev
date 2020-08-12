@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Container  } from 'react-bootstrap';
+import {Container,Card, Row, Col  } from 'react-bootstrap';
 import Topo from "../../topo";
 import SideBar from "../../sidebar";
 import  api from "../../../service";
@@ -68,7 +68,54 @@ export default class ConfigUser extends Component {
                     />
                     <SideBar/>
                     <Container fluid>
-                        conteudo aqui
+                        <Card className="cartaoorcamento">
+                            <Row>
+                                <Col md={3}>
+                                    <Card style={{ marginTop:20 }} className="animate__animated  animate__jackInTheBox">
+                                        <Card.Body>
+                                            <Card.Title>Meus dados</Card.Title>
+                                            <Card.Subtitle className="mb-2 text-muted">Dados da minha conta</Card.Subtitle>
+                                            <Card.Text>
+
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Col>
+                                <Col md={3}>
+                                    <Card style={{ marginTop:20 }} className="animate__animated  animate__jackInTheBox">
+                                        <Card.Body>
+                                            <Card.Title>Criar novo usuario Admin</Card.Title>
+                                            <Card.Subtitle className="mb-2 text-muted">Criar conta para acessar nossa area de admin</Card.Subtitle>
+                                            <Card.Text>
+                                                
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Col>
+                                <Col md={3}>
+                                    <Card style={{ marginTop:20 }} className="animate__animated  animate__jackInTheBox">
+                                        <Card.Body>
+                                            <Card.Title>Criar novo usuario Cliente</Card.Title>
+                                            <Card.Subtitle className="mb-2 text-muted">Criar conta para acessar ter acesso</Card.Subtitle>
+                                            <Card.Text>
+                                                
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Col>
+                                <Col md={3}>
+                                    <Card style={{ marginTop:20 }} className="animate__animated  animate__jackInTheBox">
+                                        <Card.Body>
+                                            <Card.Title>Configurações de api</Card.Title>
+                                            <Card.Subtitle className="mb-2 text-muted">area para configurar nossa api interna</Card.Subtitle>
+                                            <Card.Text>
+                                                
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Col>
+                            </Row>
+                        </Card>
                     </Container>
                 </div>
             )
