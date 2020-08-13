@@ -28,8 +28,8 @@ export default class ChartsClientes extends Component {
             <div>
                 <VictoryPie
                 data={[
-                    { x: "Novos", y: this.state.novos },
-                    { x: "Total", y: this.state.total }
+                    { x: this.props.itemUm, y: this.props.valorUm },
+                    { x:  this.props.itemDois, y: this.props.valorDois }
                   ]}
                   animate={{ duration: 1000, easing: "bounce" }}
                   colorScale={["purple","navy" ]}

@@ -18,7 +18,7 @@ export default class VisualizarProjeto extends Component {
         nome:'',
         idProj:'',
         data:[],
-        statusPRojN:1,
+        statusPRojN:0,
         menssagem:'',
         status:'',
         historico:[]
@@ -73,6 +73,11 @@ export default class VisualizarProjeto extends Component {
 
     //mudar
     onChange(e) {
+        if(e.target.value == 'Finalizado'){
+            this.setState({
+                statusPRojN:100
+            })
+        }
         this.setState({
             [e.target.name]: e.target.value
         });

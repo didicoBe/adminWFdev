@@ -16,7 +16,9 @@ import './style.css'
 export default class ConfigUser extends Component {
     state ={
         logado: true,
-        nome:''
+        nome:'',
+        id:''
+
     }
 
 
@@ -24,25 +26,31 @@ export default class ConfigUser extends Component {
         const login = localStorage.getItem('login');
         const token = localStorage.getItem('token');
         const nome = localStorage.getItem('nome');
+        const id = localStorage.getItem('id');
 
         var resposta = false
         if(login === null || token === null){
             this.setState({
                 logado: false,
-                nome:''
+                nome:'',
+                id:''
+
             })
             return resposta
         }else{
             resposta = api.get('/login/'+login+'/'+token).then(response=>{
                 this.setState({
                     logado: true,
-                    nome:nome
+                    nome:nome,
+                    id:id
                 })
                 return  true
             }).catch((erro)=>{
                 this.setState({
                     logado: false,
-                    nome:''
+                    nome:'',
+                    id:''
+
                 })
                 return false
             })
@@ -84,21 +92,23 @@ export default class ConfigUser extends Component {
                             <hr/>
                             <Row>
                                 <Col md={3}>
+                                    <Link to={"/configuser/"+this.state.id}>
                                     <Card style={{ marginTop:20 }} className="animate__animated  animate__fadeInDown cartaoExterno">
                                         <Card.Body>
                                             <Card.Title>Meus dados</Card.Title>
-                                            <Card.Subtitle className="mb-2 text-muted">Dados da minha conta</Card.Subtitle>
+                                            <Card.Subtitle className="mb-2 ">Dados da minha conta</Card.Subtitle>
                                             <Card.Text style={{textAlign:'center'}}>
                                                 <FontAwesomeIcon icon={faIdCard}  style={{fontSize:120, marginTop:15}}/>
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
+                                    </Link>
                                 </Col>
                                 <Col md={3}>
                                     <Card style={{ marginTop:20 }} className="animate__animated  animate__fadeInDown  cartaoExterno">
                                         <Card.Body>
                                             <Card.Title>Criar novo usuario Admin</Card.Title>
-                                            <Card.Subtitle className="mb-2 text-muted">Criar conta para acessar nossa area de admin</Card.Subtitle>
+                                            <Card.Subtitle className="mb-2 ">Criar conta para acessar nossa area de admin</Card.Subtitle>
                                             <Card.Text style={{textAlign:'center'}}>
                                                 <FontAwesomeIcon icon={faIdCardAlt}  style={{fontSize:120, marginTop:15}}/>
                                             </Card.Text>
@@ -109,7 +119,7 @@ export default class ConfigUser extends Component {
                                     <Card style={{ marginTop:20 }} className="animate__animated  animate__fadeInDown  cartaoExterno">
                                         <Card.Body>
                                             <Card.Title>Criar novo usuario Cliente</Card.Title>
-                                            <Card.Subtitle className="mb-2 text-muted">Criar conta para acessar ter acesso</Card.Subtitle>
+                                            <Card.Subtitle className="mb-2 ">Criar conta para acessar ter acesso</Card.Subtitle>
                                              <Card.Text style={{textAlign:'center'}}>
                                                 <FontAwesomeIcon icon={faAddressCard}  style={{fontSize:120, marginTop:15}}/>
                                             </Card.Text>
@@ -120,7 +130,7 @@ export default class ConfigUser extends Component {
                                     <Card style={{ marginTop:20 }} className="animate__animated  animate__fadeInDown  cartaoExterno">
                                         <Card.Body>
                                             <Card.Title>Configurações de api</Card.Title>
-                                            <Card.Subtitle className="mb-2 text-muted">area para configurar nossa api interna</Card.Subtitle>
+                                            <Card.Subtitle className="mb-2 ">area para configurar nossa api interna</Card.Subtitle>
                                              <Card.Text style={{textAlign:'center'}}>
                                                 <FontAwesomeIcon icon={faLayerGroup}  style={{fontSize:120, marginTop:15}}/>
                                             </Card.Text>
@@ -132,7 +142,7 @@ export default class ConfigUser extends Component {
                                 
                                 <Col>
                                     
-                                    <Card style={{ marginTop:20, padding:15 }} className="animate__animated  animate__fadeInDown  cartaoExterno">
+                                    <Card style={{ marginTop:20, padding:15 }} className="animate__animated  animate__fadeInDown cartaoorcamento">
                                     <div className='titulos'><span style={{fontWeight:500}}><FontAwesomeIcon icon={faUserSecret} color='#7b347f'  style={{fontSize:25}}/> Lista de usuarios </span></div>
                                         <Tab.Container id="left-tabs-example" defaultActiveKey="first">
                                             <Row>
