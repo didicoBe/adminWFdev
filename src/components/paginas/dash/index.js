@@ -4,6 +4,9 @@ import Topo from "../../topo";
 import SideBar from "../../sidebar";
 import  api from "../../../service";
 import { ToastContainer ,toast } from "react-toastify";
+import  ChartsClientes   from "../../charts";
+import  ChartsMeses   from "../../charts/meses";
+import "animate.css"
 
 
 import './style.css'
@@ -12,7 +15,8 @@ export default class Dash extends Component {
 
     state ={
         logado: true,
-        nome:''
+        nome:'',
+        teste: ''
     }
 
 
@@ -76,6 +80,21 @@ export default class Dash extends Component {
         this.validaOnline()
     }
 
+
+    addanimacao(){
+        this.setState({
+            teste:'animate__animated animate__jackInTheBox'
+        })
+    }
+    removeanimacao(){
+        setTimeout(()=>{
+            this.setState({
+                teste:''
+            })
+        },1000)
+        
+    }
+
     render() {
         
         if(this.state.logado === false){
@@ -94,59 +113,63 @@ export default class Dash extends Component {
                         <Card className="cartaoorcamento">
                             <h5>Dashboard</h5>
                             <Row>
-                                <Col md={4}>
-                                    <Card style={{ width: '18rem', marginTop:20 }}>
+                                <Col md={3}>
+                                    <Card style={{ marginTop:20 }} className="animate__animated  animate__jackInTheBox">
                                         <Card.Body>
-                                            <Card.Title>Total deClientes</Card.Title>
-                                            <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle>
+                                            <Card.Title>Total de Clientes</Card.Title>
+                                            <Card.Subtitle className="mb-2 text-muted">Total vs Novos</Card.Subtitle>
                                             <Card.Text>
-                                                Some quick example text to build on the card title and make up the bulk of
-                                                the card's content.
+                                                <ChartsClientes/>
                                             </Card.Text>
-                                            <Card.Link href="#">Card Link</Card.Link>
-                                            <Card.Link href="#">Another Link</Card.Link>
                                         </Card.Body>
                                     </Card>
                                 </Col>
-                                <Col md={4}>
-                                    <Card style={{ width: '18rem', marginTop:20 }}>
+                                <Col md={3}>
+                                    <Card style={{ marginTop:20 }} className="animate__animated  animate__jackInTheBox">
                                         <Card.Body>
                                             <Card.Title>Total de Projetos</Card.Title>
-                                            <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle>
+                                            <Card.Subtitle className="mb-2 text-muted">Em andamento Vs Finalizados</Card.Subtitle>
                                             <Card.Text>
-                                                Some quick example text to build on the card title and make up the bulk of
-                                                the card's content.
+                                                <ChartsClientes/>
                                             </Card.Text>
-                                            <Card.Link href="#">Card Link</Card.Link>
-                                            <Card.Link href="#">Another Link</Card.Link>
+                                            
                                         </Card.Body>
                                     </Card>
                                 </Col>
-                                <Col md={4}>
-                                    <Card style={{ width: '18rem', marginTop:20 }}>
-                                        <Card.Body>
-                                            <Card.Title>Total de ORçamentos</Card.Title>
-                                            <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle>
-                                            <Card.Text>
-                                                Some quick example text to build on the card title and make up the bulk of
-                                                the card's content.
-                                            </Card.Text>
-                                            <Card.Link href="#">Card Link</Card.Link>
-                                            <Card.Link href="#">Another Link</Card.Link>
-                                        </Card.Body>
-                                    </Card>
-                                </Col>
-                                <Col md={4}>
-                                    <Card style={{ width: '18rem', marginTop:20 }}>
+                               
+                                <Col md={3}>
+                                    <Card style={{ marginTop:20 }} className="animate__animated  animate__jackInTheBox" >
                                         <Card.Body>
                                             <Card.Title>Faturamento Mensal</Card.Title>
-                                            <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle>
+                                            <Card.Subtitle className="mb-2 text-muted">Mês atual Vs 2 meses passados</Card.Subtitle>
                                             <Card.Text>
-                                                Some quick example text to build on the card title and make up the bulk of
-                                                the card's content.
+                                                <ChartsMeses/>
                                             </Card.Text>
-                                            <Card.Link href="#">Card Link</Card.Link>
-                                            <Card.Link href="#">Another Link</Card.Link>
+                                        </Card.Body>
+                                    </Card>
+                                </Col>
+                                <Col md={3}>
+                                    <Card style={{ marginTop:20 }} className="animate__animated  animate__jackInTheBox" >
+                                        <Card.Body>
+                                            <Card.Title>Suporte</Card.Title>
+                                            <Card.Subtitle className="mb-2 text-muted">Tickets em aberto Vs Fechados</Card.Subtitle>
+                                            <Card.Text>
+                                                <ChartsClientes/>
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col md={3}>
+                                    <Card style={{ marginTop:20 }} className="animate__animated  animate__jackInTheBox">
+                                        <Card.Body>
+                                            <Card.Title>Total de Orçamentos</Card.Title>
+                                            <Card.Subtitle className="mb-2 text-muted">todos os orçamentos feitos até hoje</Card.Subtitle>
+                                            <Card.Text>
+                                                    <div style={{fontSize:45,fontWeight:300, textAlign:'center'}}>150</div>
+                                            </Card.Text>
+                                            
                                         </Card.Body>
                                     </Card>
                                 </Col>

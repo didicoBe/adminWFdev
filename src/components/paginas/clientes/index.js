@@ -1,16 +1,22 @@
 import React, { Component } from 'react'
-import {Container,Card, Button,ListGroup  } from 'react-bootstrap';
+import {Container,Card, Button,ListGroup,InputGroup, FormControl  } from 'react-bootstrap';
 import Topo from "../../topo";
 import SideBar from "../../sidebar";
 import  api from "../../../service";
 import { ToastContainer ,toast } from "react-toastify";
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
+
+//filtro
+import SearchResults from 'react-filter-search';
 
 export default class Clientes extends Component {
     state ={
         logado: true,
         nome:'',
-        data:[]
+        data:[],
+        value: ''
     }
 
 
@@ -74,6 +80,11 @@ export default class Clientes extends Component {
     }
 
 
+    handleChange = event => {
+        const { value } = event.target;
+        this.setState({ value });
+      };
+
 
 
 
@@ -100,7 +111,24 @@ export default class Clientes extends Component {
                                     </Link>
                                 </div>
                             </div>
-                            <div style={{marginTop:'60px'}}>
+
+
+                            {/*aqui entra o filtro  */}
+                            <div>
+                                <InputGroup className="mt-5 col-md-3 float-right">
+                                    <InputGroup.Prepend>
+                                        <InputGroup.Text id="basic-addon1"><FontAwesomeIcon icon={faSearch} color="#7b347f" style={{marginRight:10}}/></InputGroup.Text>
+                                    </InputGroup.Prepend>
+                                    <FormControl
+                                        placeholder="pesquisar"
+                                        aria-label="pesquisar"
+                                        aria-describedby="basic-addon1"
+                                        value={this.state.value} onChange={this.handleChange}
+                                    />
+                                </InputGroup>
+                            </div>
+
+                            <div style={{marginTop:'30px'}}>
                                 <div style={{display:'flex',justifyContent:'space-between', fontWeight:'600', color:'#7b347f'}}>
                                     <div style={{width:150}}>Nome Fantasia</div>
                                     <div style={{width:150}}>Nome Razao social</div>
@@ -110,23 +138,32 @@ export default class Clientes extends Component {
                                 
 
                                 <hr/>
-                                <ListGroup variant="flush">
-                                    {this.state.data.map((resp)=>{
-                                        return(
-                                        <ListGroup.Item key={resp.id}>
-                                            <div style={{display:'flex',justifyContent:'space-between'}}>
-                                                <div style={{width:180}}>{resp.nomeFantasia}</div>
-                                                <div style={{width:180}}>{resp.razaoSocial}</div>
-                                                <div style={{width:180}}>{resp.nomeResponsavel}</div>
+
+
+                                <SearchResults
+                                    value={this.state.value}
+                                    data={this.state.data}
+                                    renderResults={results => (
+                                        <div>
+                                        {results.map(el => (
+                                            <ListGroup.Item key={el.id}>
+                                                <div style={{display:'flex',justifyContent:'space-between'}}>
+                                                    <div style={{width:180}}>{el.nomeFantasia}</div>
+                                                    <div style={{width:180}}>{el.razaoSocial}</div>
+                                                    <div style={{width:180}}>{el.nomeResponsavel}</div>
+                                                    
+                                                    <Button className="btn-wf" onClick={()=>this.abrepagina(el.id)}>visualizar</Button>
+                                                    
+                                                    
+                                                </div>
                                                 
-                                                <Button className="btn-wf" onClick={()=>this.abrepagina(resp.id)}>visualizar</Button>
-                                                
-                                                
-                                            </div>
-                                            
-                                        </ListGroup.Item>)
-                                    })}
-                                </ListGroup>
+                                            </ListGroup.Item>
+                                        ))}
+                                        </div>
+                                    )}
+                                    />
+
+
                             </div>
                            
                         </Card>
