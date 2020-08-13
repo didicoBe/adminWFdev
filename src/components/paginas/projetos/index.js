@@ -19,7 +19,8 @@ export default class Projeto extends Component {
         github:'',        
         GoogleDrive:'',
         formaDePagamento:'',
-        valor:''
+        valor:'',
+        Url:''
 
 
     }
@@ -76,6 +77,7 @@ export default class Projeto extends Component {
                 GoogleDrive:this.state.GoogleDrive,
                 formaDePagamento:this.state.formaDePagamento,
                 valor:this.state.valor,
+                urlDominio:this.state.Url
         }
        
         await api.post('http://wfdesenvolvimento.com.br/api/projeto', dados)
@@ -197,19 +199,23 @@ export default class Projeto extends Component {
                                     </Form.Row>
 
                                     <Form.Row>
-                                        <Form.Group as={Col} md={4} >
+                                        <Form.Group as={Col} md={3} >
                                             <Form.Label>Vercel Url</Form.Label>
                                             <Form.Control name="vercel" id="vercel" onChange={(e)=>this.onChange(e)} value={this.state.vercel}   />
                                         </Form.Group>
 
-                                        <Form.Group as={Col} md={4} >
+                                        <Form.Group as={Col} md={3} >
                                             <Form.Label>Github Url</Form.Label>
                                             <Form.Control  name="github" id="github" onChange={(e)=>this.onChange(e)}  value={this.state.github} />
                                         </Form.Group>
 
-                                        <Form.Group as={Col} md={4} >
+                                        <Form.Group as={Col} md={3} >
                                             <Form.Label>GoogleDrive Url</Form.Label>
                                             <Form.Control  name="GoogleDrive" id="GoogleDrive" onChange={(e)=>this.onChange(e)} value={this.state.GoogleDrive} />
+                                        </Form.Group>
+                                        <Form.Group as={Col} md={3} >
+                                            <Form.Label>Url do site</Form.Label>
+                                            <Form.Control  name="Url" id="Url" onChange={(e)=>this.onChange(e)} value={this.state.Url} />
                                         </Form.Group>
                                     </Form.Row>
 

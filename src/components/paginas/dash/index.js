@@ -16,7 +16,8 @@ export default class Dash extends Component {
     state ={
         logado: true,
         nome:'',
-        teste: ''
+        teste: '',
+        totalOrcamento:0
     }
 
 
@@ -42,15 +43,7 @@ export default class Dash extends Component {
                     logado: true,
                     nome:nome
                 })
-                toast.success('😁 Seja bem vindo(a) '+nome, {
-                    position: "top-center",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    });
+               
 
                 return  true
             }).catch((erro)=>{
@@ -75,24 +68,28 @@ export default class Dash extends Component {
  
     }
 
+    pegaTodosOrcamento = async()=>{
+    
+            await api.get('/orcamento').then(response=>{
+                this.setState({
+                    totalOrcamento: response.data.length
+                })
+            }).catch((erro)=>{
+                toast.error('🥺 Erro ao enviar, entre em contato com o suporte!', {
+                            position: "top-center",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            });
+            })
+    }
 
     componentDidMount(){
         this.validaOnline()
-    }
-
-
-    addanimacao(){
-        this.setState({
-            teste:'animate__animated animate__jackInTheBox'
-        })
-    }
-    removeanimacao(){
-        setTimeout(()=>{
-            this.setState({
-                teste:''
-            })
-        },1000)
-        
+        this.pegaTodosOrcamento()
     }
 
     render() {
@@ -114,7 +111,7 @@ export default class Dash extends Component {
                             <h5>Dashboard</h5>
                             <Row>
                                 <Col md={3}>
-                                    <Card style={{ marginTop:20 }} className="animate__animated  animate__jackInTheBox">
+                                    <Card style={{ marginTop:20 }} className="animate__animated  animate__fadeInDown">
                                         <Card.Body>
                                             <Card.Title>Total de Clientes</Card.Title>
                                             <Card.Subtitle className="mb-2 text-muted">Total vs Novos</Card.Subtitle>
@@ -125,7 +122,7 @@ export default class Dash extends Component {
                                     </Card>
                                 </Col>
                                 <Col md={3}>
-                                    <Card style={{ marginTop:20 }} className="animate__animated  animate__jackInTheBox">
+                                    <Card style={{ marginTop:20 }} className="animate__animated  animate__fadeInDown">
                                         <Card.Body>
                                             <Card.Title>Total de Projetos</Card.Title>
                                             <Card.Subtitle className="mb-2 text-muted">Em andamento Vs Finalizados</Card.Subtitle>
@@ -138,7 +135,7 @@ export default class Dash extends Component {
                                 </Col>
                                
                                 <Col md={3}>
-                                    <Card style={{ marginTop:20 }} className="animate__animated  animate__jackInTheBox" >
+                                    <Card style={{ marginTop:20 }} className="animate__animated  animate__fadeInDown" >
                                         <Card.Body>
                                             <Card.Title>Faturamento Mensal</Card.Title>
                                             <Card.Subtitle className="mb-2 text-muted">Mês atual Vs 2 meses passados</Card.Subtitle>
@@ -149,7 +146,7 @@ export default class Dash extends Component {
                                     </Card>
                                 </Col>
                                 <Col md={3}>
-                                    <Card style={{ marginTop:20 }} className="animate__animated  animate__jackInTheBox" >
+                                    <Card style={{ marginTop:20 }} className="animate__animated  animate__fadeInDown" >
                                         <Card.Body>
                                             <Card.Title>Suporte</Card.Title>
                                             <Card.Subtitle className="mb-2 text-muted">Tickets em aberto Vs Fechados</Card.Subtitle>
@@ -162,12 +159,12 @@ export default class Dash extends Component {
                             </Row>
                             <Row>
                                 <Col md={3}>
-                                    <Card style={{ marginTop:20 }} className="animate__animated  animate__jackInTheBox">
+                                    <Card style={{ marginTop:20 }} className="animate__animated  animate__fadeInDown">
                                         <Card.Body>
                                             <Card.Title>Total de Orçamentos</Card.Title>
                                             <Card.Subtitle className="mb-2 text-muted">todos os orçamentos feitos até hoje</Card.Subtitle>
                                             <Card.Text>
-                                                    <div style={{fontSize:45,fontWeight:300, textAlign:'center'}}>150</div>
+                                                    <div style={{fontSize:45,fontWeight:300, textAlign:'center'}}>{this.state.totalOrcamento}</div>
                                             </Card.Text>
                                             
                                         </Card.Body>
