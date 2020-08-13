@@ -1,0 +1,14 @@
+.cartaoExterno :hover {
+    background-color: #7b347f !important;
+    color: #fff !important;
+    cursor: pointer;
+}
+
+.cartaoExterno {
+    background-color: #fff !important;
+    color: #7b347f !important;
+    cursor: pointer;
+}
+.progress-bar{
+    background-color: #7b347f !important;
+}
