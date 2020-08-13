@@ -27,7 +27,7 @@ export default class Login extends Component {
 
         const body = {
             login: this.state.login,
-            senha: this.state.senha
+            senha: this.state.senha 
         }
         
         await api.post('/login', body).then(response=>{
