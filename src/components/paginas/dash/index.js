@@ -16,7 +16,12 @@ export default class Dash extends Component {
     state ={
         logado: true,
         nome:'',
-        teste: ''
+        teste: '',
+        totalOrcamento:0,
+        totalCliente:0,
+        totalClienteNovos:0,
+        totalProjetosAndamento:0,
+        totalProjetosFinalizados:0,
     }
 
 
@@ -37,20 +42,12 @@ export default class Dash extends Component {
             return resposta
 
         }else{
-            resposta = api.get('/login/'+login+'/'+token).then(response=>{
+            resposta = api.get('/login/valida/'+login+'/'+token).then(response=>{
                 this.setState({
                     logado: true,
                     nome:nome
                 })
-                toast.success('😁 Seja bem vindo(a) '+nome, {
-                    position: "top-center",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    });
+               
 
                 return  true
             }).catch((erro)=>{
@@ -75,24 +72,78 @@ export default class Dash extends Component {
  
     }
 
+    pegaTodosOrcamento = async()=>{
+    
+            await api.get('/orcamento').then(response=>{
+                
+                this.setState({
+                    totalOrcamento: response.data.length
+                })
+            }).catch((erro)=>{
+                toast.error('🥺 Erro ao enviar, entre em contato com o suporte!', {
+                            position: "top-center",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            });
+            })
+    }
+
+    totalCliente = async()=>{
+        await api.get('/cliente').then(response=>{
+            this.setState({
+                totalCliente: response.data.length
+            })
+        }).catch((erro)=>{
+            toast.error('🥺 Erro ao enviar, entre em contato com o suporte!', {
+                        position: "top-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        });
+        })
+    }
+
+    
+
+    totalProjetos = async()=>{
+        await api.get('/projeto').then(response=>{
+            
+            var Andamento = response.data.filter(data => data.status != 'Finalizado')
+            
+            var Finalizado = response.data.filter(data => data.status == 'Finalizado')
+            
+
+            this.setState({
+                totalProjetosAndamento: Andamento.length,
+                totalProjetosFinalizados:Finalizado.length
+            })
+        }).catch((erro)=>{
+            toast.error('🥺 Erro ao enviar, entre em contato com o suporte!', {
+                        position: "top-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        });
+        })
+    }
+
 
     componentDidMount(){
         this.validaOnline()
-    }
+        this.pegaTodosOrcamento()
+        this.totalCliente()
+        this.totalProjetos()
 
-
-    addanimacao(){
-        this.setState({
-            teste:'animate__animated animate__jackInTheBox'
-        })
-    }
-    removeanimacao(){
-        setTimeout(()=>{
-            this.setState({
-                teste:''
-            })
-        },1000)
-        
     }
 
     render() {
@@ -114,23 +165,33 @@ export default class Dash extends Component {
                             <h5>Dashboard</h5>
                             <Row>
                                 <Col md={3}>
-                                    <Card style={{ marginTop:20 }} className="animate__animated  animate__jackInTheBox">
+                                    <Card style={{ marginTop:20 }} className="animate__animated  animate__fadeInDown">
                                         <Card.Body>
                                             <Card.Title>Total de Clientes</Card.Title>
                                             <Card.Subtitle className="mb-2 text-muted">Total vs Novos</Card.Subtitle>
                                             <Card.Text>
-                                                <ChartsClientes/>
+                                                <ChartsClientes
+                                                    itemUm='Total' 
+                                                    itemDois='Novos' 
+                                                    valorUm={this.state.totalCliente} 
+                                                    valorDois={this.state.totalClienteNovos} 
+                                                />
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
                                 </Col>
                                 <Col md={3}>
-                                    <Card style={{ marginTop:20 }} className="animate__animated  animate__jackInTheBox">
+                                    <Card style={{ marginTop:20 }} className="animate__animated  animate__fadeInDown">
                                         <Card.Body>
                                             <Card.Title>Total de Projetos</Card.Title>
                                             <Card.Subtitle className="mb-2 text-muted">Em andamento Vs Finalizados</Card.Subtitle>
                                             <Card.Text>
-                                                <ChartsClientes/>
+                                                <ChartsClientes
+                                                     itemUm='And'
+                                                     itemDois='Fnz'
+                                                     valorUm={this.state.totalProjetosAndamento}
+                                                     valorDois={this.state.totalProjetosFinalizados}
+                                                />
                                             </Card.Text>
                                             
                                         </Card.Body>
@@ -138,7 +199,7 @@ export default class Dash extends Component {
                                 </Col>
                                
                                 <Col md={3}>
-                                    <Card style={{ marginTop:20 }} className="animate__animated  animate__jackInTheBox" >
+                                    <Card style={{ marginTop:20 }} className="animate__animated  animate__fadeInDown" >
                                         <Card.Body>
                                             <Card.Title>Faturamento Mensal</Card.Title>
                                             <Card.Subtitle className="mb-2 text-muted">Mês atual Vs 2 meses passados</Card.Subtitle>
@@ -149,12 +210,17 @@ export default class Dash extends Component {
                                     </Card>
                                 </Col>
                                 <Col md={3}>
-                                    <Card style={{ marginTop:20 }} className="animate__animated  animate__jackInTheBox" >
+                                    <Card style={{ marginTop:20 }} className="animate__animated  animate__fadeInDown" >
                                         <Card.Body>
                                             <Card.Title>Suporte</Card.Title>
                                             <Card.Subtitle className="mb-2 text-muted">Tickets em aberto Vs Fechados</Card.Subtitle>
                                             <Card.Text>
-                                                <ChartsClientes/>
+                                            <ChartsClientes
+                                                     itemUm='Andamento'
+                                                     itemDois='Finalizados'
+                                                     valorUm={this.state.totalProjetosAndamento}
+                                                     valorDois={this.state.totalProjetosFinalizados}
+                                                />
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
@@ -162,12 +228,12 @@ export default class Dash extends Component {
                             </Row>
                             <Row>
                                 <Col md={3}>
-                                    <Card style={{ marginTop:20 }} className="animate__animated  animate__jackInTheBox">
+                                    <Card style={{ marginTop:20 }} className="animate__animated  animate__fadeInDown">
                                         <Card.Body>
                                             <Card.Title>Total de Orçamentos</Card.Title>
                                             <Card.Subtitle className="mb-2 text-muted">todos os orçamentos feitos até hoje</Card.Subtitle>
                                             <Card.Text>
-                                                    <div style={{fontSize:45,fontWeight:300, textAlign:'center'}}>150</div>
+                                                    <div style={{fontSize:45,fontWeight:300, textAlign:'center'}}>{this.state.totalOrcamento}</div>
                                             </Card.Text>
                                             
                                         </Card.Body>

@@ -22,18 +22,19 @@ export default class Login extends Component {
     }
 
 
-    login = async ()=>{
-        
+    login = async (e)=>{
+        e.preventDefault()
 
         const body = {
             login: this.state.login,
-            senha: this.state.senha
+            senha: this.state.senha 
         }
         
         await api.post('/login', body).then(response=>{
             localStorage.setItem('login', response.data.response[0].email);
             localStorage.setItem('token', response.data.response[0].token);
             localStorage.setItem('nome', response.data.response[0].nome);
+            localStorage.setItem('id', response.data.response[0].id);
             return(
                 this.props.history.push('/dash')
             )
@@ -66,7 +67,7 @@ export default class Login extends Component {
             return resposta
 
         }else{
-            resposta = api.get('/login/'+login+'/'+token).then(response=>{
+            resposta = api.get('/login/valida/'+login+'/'+token).then(response=>{
                 this.setState({
                     logado: true,
                     nome:nome
@@ -122,20 +123,20 @@ export default class Login extends Component {
                     <img src="/img/LogoNEGATIVO2.png" className='imgLogin' alt="WfDev" />
                 </div>
                 <div className="centroLogin">
-                    <Card style={{ width: '25rem',boxShadow:'3px 3px 6px black'}}>
+                    <Card style={{width:300,boxShadow:'3px 3px 6px black'}}>
                         <Card.Body>
                             <Card.Title style={{textAlign:'center'}}>Admin</Card.Title>
                             <Card.Subtitle className="mb-2 text-muted" style={{textAlign:'left'}}>Login</Card.Subtitle>
                             <div>
-                                <Form>
-                                    <Form.Group>
+                                <Form onSubmit={(e)=>{this.login(e)}}>
+                                    <Form.Group >
                                         <Form.Control type="email" placeholder="Entre com seu email" name="login" id="login" onChange={(e)=>{this.onChange(e)}} />
                                     </Form.Group>
     
                                     <Form.Group >
                                         <Form.Control type="password" placeholder="senha"  name="senha" id="senha" onChange={(e)=>{this.onChange(e)}} />
                                     </Form.Group>
-                                    <Button variant="secondary" onClick={()=>{this.login()}}>
+                                    <Button variant="secondary" type="submit">
                                     Entrar
                                     </Button>
                                 </Form>
