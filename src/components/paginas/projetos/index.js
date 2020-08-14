@@ -11,7 +11,6 @@ export default class Projeto extends Component {
         logado: true,
         nome:'',
         idCliente:'',
-        logo:'',
         nomeprojeto:'',
         dataEntrega:'',
         descritivo:'',
@@ -19,7 +18,8 @@ export default class Projeto extends Component {
         github:'',        
         GoogleDrive:'',
         formaDePagamento:'',
-        valor:''
+        valor:'',
+        Url:''
 
 
     }
@@ -38,7 +38,7 @@ export default class Projeto extends Component {
             })
             return resposta
         }else{
-            resposta = api.get('/login/'+login+'/'+token).then(response=>{
+            resposta = api.get('/login/valida/'+login+'/'+token).then(response=>{
                 this.setState({
                     logado: true,
                     nome:nome
@@ -58,27 +58,36 @@ export default class Projeto extends Component {
     }
 
     onChange(e) {
-        this.setState({
-            [e.target.name]: e.target.value
-        });
+
+            this.setState({
+                [e.target.name]: e.target.value
+
+        })
+
+
+        
     }
 
     async onSubmit(e) {
         var idCli = this.state.idCliente
-        const dados = { 
-                idCliente:this.state.idCliente,
-                logo:this.state.logo,
-                nome:this.state.nomeprojeto,
-                dataEntrega:this.state.dataEntrega,
-                descritivo:this.state.descritivo,
-                vercel:this.state.vercel,
-                github:this.state.github,        
-                GoogleDrive:this.state.GoogleDrive,
-                formaDePagamento:this.state.formaDePagamento,
-                valor:this.state.valor,
-        }
+        const form = new FormData();
+
+        form.set('idCliente',this.state.idCliente)
+        form.set('nome',this.state.nomeprojeto)
+        form.set('dataEntrega',this.state.dataEntrega)
+        form.set('vercel',this.state.vercel)
+        form.set('descritivo',this.state.descritivo)
+        form.set('github',this.state.github)
+        form.set('GoogleDrive',this.state.GoogleDrive)
+        form.set('formaDePagamento',this.state.formaDePagamento)
+        form.set('valor',this.state.valor)
+        form.set('urlDominio',this.state.Url)
+        form.append('logo', document.getElementById("logo").files[0])
+        const headers = { 
+            'Content-Type': 'multipart/form-data' 
+        };
        
-        await api.post('http://wfdesenvolvimento.com.br/api/projeto', dados)
+        await api.post('http://wfdesenvolvimento.com.br/api/projeto', form,{headers})
             .then(response => {
                 this.setState({
                     idCliente:'',
@@ -160,7 +169,7 @@ export default class Projeto extends Component {
                                     <Form.Row>
 
                                         <Form.Group as={Col} md={4}>
-                                            <Form.File label="Logo" name="logo" id="logo" onChange={(e)=>this.onChange(e)} value={this.state.logo} />
+                                            <Form.File accept="image/png" label="Logo" name="logo" id="logo" onChange={(e)=>this.onChange(e)} value={this.state.logo} />
                                         </Form.Group>
 
                                         <Form.Group as={Col} md={4} >
@@ -197,19 +206,23 @@ export default class Projeto extends Component {
                                     </Form.Row>
 
                                     <Form.Row>
-                                        <Form.Group as={Col} md={4} >
+                                        <Form.Group as={Col} md={3} >
                                             <Form.Label>Vercel Url</Form.Label>
                                             <Form.Control name="vercel" id="vercel" onChange={(e)=>this.onChange(e)} value={this.state.vercel}   />
                                         </Form.Group>
 
-                                        <Form.Group as={Col} md={4} >
+                                        <Form.Group as={Col} md={3} >
                                             <Form.Label>Github Url</Form.Label>
                                             <Form.Control  name="github" id="github" onChange={(e)=>this.onChange(e)}  value={this.state.github} />
                                         </Form.Group>
 
-                                        <Form.Group as={Col} md={4} >
+                                        <Form.Group as={Col} md={3} >
                                             <Form.Label>GoogleDrive Url</Form.Label>
                                             <Form.Control  name="GoogleDrive" id="GoogleDrive" onChange={(e)=>this.onChange(e)} value={this.state.GoogleDrive} />
+                                        </Form.Group>
+                                        <Form.Group as={Col} md={3} >
+                                            <Form.Label>Url do site</Form.Label>
+                                            <Form.Control  name="Url" id="Url" onChange={(e)=>this.onChange(e)} value={this.state.Url} />
                                         </Form.Group>
                                     </Form.Row>
 

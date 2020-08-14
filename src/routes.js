@@ -11,9 +11,13 @@ import Novocliente from "../src/components/paginas/clientes/novo";
 import Visualizarcliente from "../src/components/paginas/clientes/visualizar";
 import Projeto from "../src/components/paginas/projetos";
 import VisualizarProjeto from "../src/components/paginas/projetos/visualizar";
+
 import Suporte from "../src/components/paginas/suporte";
 
 const Routes = () => (
+=======
+import Meusdados from "./components/paginas/configUser/meusdados";
+
 
     <div>
         <BrowserRouter>
@@ -21,6 +25,7 @@ const Routes = () => (
                 <Route exact path="/" component={Login}></Route>
                 <Route exact path="/dash" component={Dash}></Route>
                 <Route exact path="/configuser" component={ConfigUser}></Route>
+                <Route exact path="/configuser/:id" component={Meusdados}></Route>
                 <Route exact path="/orcamento" component={Orcamento}></Route>
                 <Route exact path="/novoorcamento" component={NovoOrcamento}></Route>
                 <Route exact path="/orcamento/visualizar/:id" component={OrcamentoVisualizar}></Route>

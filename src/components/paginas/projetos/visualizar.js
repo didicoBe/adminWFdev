@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Container,Card,Button, Row, Col,ProgressBar  } from 'react-bootstrap';
+import {Container,Card,Button, Row, Col,ProgressBar,Form  } from 'react-bootstrap';
 import Topo from "../../topo";
 import SideBar from "../../sidebar";
 import  api from "../../../service";
@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretSquareUp, faLaptopCode} from '@fortawesome/free-solid-svg-icons'
 import { faGoogleDrive, faGithub } from "@fortawesome/free-brands-svg-icons"
+import InputRange from 'react-input-range'
 
 import './style.css'
 
@@ -16,9 +17,13 @@ export default class VisualizarProjeto extends Component {
         logado: true,
         nome:'',
         idProj:'',
-        data:[]
+        data:[],
+        statusPRojN:0,
+        menssagem:'',
+        status:'',
+        historico:[]
     }
-
+ 
 
     validaOnline = ()=>{
         const login = localStorage.getItem('login');
@@ -33,7 +38,7 @@ export default class VisualizarProjeto extends Component {
             })
             return resposta
         }else{
-            resposta = api.get('/login/'+login+'/'+token).then(response=>{
+            resposta = api.get('/login/valida/'+login+'/'+token).then(response=>{
                 this.setState({
                     logado: true,
                     nome:nome
@@ -56,7 +61,107 @@ export default class VisualizarProjeto extends Component {
         var resposta = false
         resposta = api.get('/projeto/unico/'+idProj).then(response=>{
             this.setState({
-                data:response.data[0]
+                data:response.data[0],
+                statusPRojN:response.data[0].progresso,
+                status: response.data[0].status
+            })
+            return  true
+        }).catch((erro)=>{
+            return false
+        })
+    }
+
+    //mudar
+    onChange(e) {
+        if(e.target.value == 'Finalizado'){
+            this.setState({
+                statusPRojN:100
+            })
+        }
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+    }
+
+
+    //updateProgresso
+    updateProgresso = async()=>{
+        const dados = { 
+            id: this.state.idProj,
+            progresso: this.state.statusPRojN,    
+            status:this.state.status 
+        }
+
+        await api.put('/projeto', dados).then(response=>{
+            
+        }).catch((erro)=>{
+            toast.error('🥺 Erro ao enviar, entre em contato com o suporte!', {
+                        position: "top-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        });
+        })
+    }
+
+    //add novo historico
+    addNovoHistorico = async(e)=>{
+        e.preventDefault()
+        const dados = { 
+            idProjeto: this.state.idProj,
+            mensagem: this.state.mensagem,
+            usuarioSis: this.state.nome,
+            status: this.state.status,           
+        }
+
+
+        await api.post('/projeto-historico', dados).then(response=>{
+            this.updateProgresso()
+            this.pegaHistorico(this.state.idProj)
+            this.setState({
+                mensagem:'',
+            })
+            toast.success('😁 Historico Salvo com sucesso!', {
+                            position: "top-center",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            });
+
+           
+        }).catch((erro)=>{
+            toast.error('🥺 Erro ao enviar, entre em contato com o suporte!', {
+                        position: "top-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        });
+        })
+
+
+
+        
+
+
+
+
+
+    }
+
+    //pega historico do orcamento
+    pegaHistorico = async (id)=>{
+        await api.get('/projeto-historico/'+id).then(response=>{
+            this.setState({
+                historico:response.data
             })
             return  true
         }).catch((erro)=>{
@@ -72,13 +177,14 @@ export default class VisualizarProjeto extends Component {
             idProj:id
         })
         this.pegadadosProjeto(id)
+        this.pegaHistorico(id)
     }
 
-
-
-
     render() {
-        console.log(this.state.data)
+       
+
+
+
         if(this.state.logado === false){
             this.props.history.push('/')
             return null
@@ -106,7 +212,7 @@ export default class VisualizarProjeto extends Component {
                                 <div><span style={{fontWeight:500}}>Data entrega:</span> {this.state.data.dataEntrega}</div>
                             </div> 
                             <div>
-                                <span style={{fontWeight:500}}>Status: </span>{this.state.data.status}
+                                <span style={{fontWeight:500}}>Status: </span>{this.state.status}
                             </div>                                       
                             <hr/>
                             <hr/>
@@ -116,7 +222,7 @@ export default class VisualizarProjeto extends Component {
                             </div>                                        
                             <hr/>
                             <div style={{fontWeight:500}}>Progresso do projeto</div>
-                            <ProgressBar now={20} label={`${20}%`} />
+                            <ProgressBar now={this.state.statusPRojN} label={`${this.state.statusPRojN}%`} />
                             <hr/>
                             <Card style={{ marginTop:20 }}>
                                 <Card.Body>
@@ -163,7 +269,7 @@ export default class VisualizarProjeto extends Component {
                                     </a>
                                 </Col>
                                 <Col md={3}>
-                                    <a href={this.state.data.GoogleDrive} target="_blank" style={{textDecoration:'none'}} >
+                                    <a href={this.state.data.urlDominio} target="_blank" style={{textDecoration:'none'}} >
                                     <Card className="text-center cartaoExterno">
                                         <Card.Body>
                                             <FontAwesomeIcon icon={faLaptopCode}  style={{fontSize:60}}/>
@@ -173,7 +279,76 @@ export default class VisualizarProjeto extends Component {
                                     </a>
                                 </Col>
                             </Row>
+                            <Row>
+                                <Col md={6}>
+                                    <Card className="cartaoorcamento">
+                                        <h5>Adicionar novo histórico</h5>
+                                        <Col md={6} style={{borderRight:"1px solid #ced4da"}}>
+                                            <Form>
+                                                <Form.Group controlId="exampleForm.ControlSelect1">
+                                                    <Form.Label>Selecione o novo status do projeto </Form.Label>
 
+                                                    <InputRange
+                                                        maxValue={100}
+                                                        minValue={0}
+                                                        value={this.state.statusPRojN}
+                                                        onChange={value => this.setState({ statusPRojN : value })}
+                                                        
+                                                    />
+                                                    
+                                                </Form.Group>
+                                                <Form.Group controlId="exampleForm.ControlSelect1">
+                                                    <Form.Label>Selecione o novo status </Form.Label>
+                                                    <Form.Control as="select" name="status" onChange={(e)=>this.onChange(e)}>
+                                                        <option>Iniciado</option>
+                                                        <option>Em Andamento</option>
+                                                        <option>Finalizado</option>                                           
+                                                    </Form.Control>
+                                                </Form.Group>
+                                                <Form.Group controlId="exampleForm.ControlTextarea1">
+                                                    <Form.Label>Escreva a nova ocorrência</Form.Label>
+                                                    <Form.Control as="textarea" rows="3" name="mensagem" value={this.state.mensagem} onChange={(e)=>this.onChange(e)} />
+                                                </Form.Group>
+                                                <Button className="btn-wf" type="submit" onClick={(e)=>this.addNovoHistorico(e)}>
+                                                    Enviar
+                                                </Button>
+                                            </Form>
+                                        </Col>
+                                    </Card>
+                                    
+                                </Col>
+                                <Col md={6}>
+                                    <Card className="cartaoorcamento">
+                                    <h6 >Historico</h6>
+                                    <div className="basehistoricoOrcamento">
+
+                                        {
+                                            this.state.historico.map((resultado)=>{
+                                                var data = new Date(resultado.data)
+                                                return(
+                                                    <div className="historicoOrcamento">
+                                                    <Card>
+                                                        <Card.Header style={{color:'#fff',backgroundColor:'#495057',textAlign:'right', fontSize:12}}>
+                                                                <div>Data:.{data.toLocaleDateString()}</div>
+                                                        </Card.Header>
+                                                        <Card.Body>
+                                                            <Card.Title>Ocorrência</Card.Title>
+                                                                {resultado.mensagem}
+                                                            <Card.Text>
+                                                                
+                                                            </Card.Text>
+                                                        </Card.Body>
+                                                    </Card>
+                                                    </div>
+                                                )
+                                            })
+                                        }
+
+                                        
+                                    </div>
+                                    </Card>
+                                </Col>
+                            </Row>
                         </Card>
                     </Container>
                 </div>

@@ -84,11 +84,14 @@ export default class SideBar extends Component {
                                 Clientes
                                 <Link to="/clientes" />
                             </MenuItem>
+
                             <MenuItem icon={<FontAwesomeIcon icon={faTicketAlt} color="white"/>}>
                                 Suporte
                                 <Link to="/suporte" />
                             </MenuItem>
                             <MenuItem icon={<FontAwesomeIcon icon={faMoneyBillWave} color="white"/>}>Financeiro</MenuItem>
+=======
+
                             <SubMenu title="Orçamentos" icon={<FontAwesomeIcon icon={faWpforms} color="white"/>}>
                                 <MenuItem>
                                     <FontAwesomeIcon icon={faUsers} color="white" /> Todos
@@ -102,6 +105,12 @@ export default class SideBar extends Component {
                             </SubMenu>
                             <MenuItem
                                 icon={<FontAwesomeIcon icon={faDoorOpen}
+=======
+                            <MenuItem icon={<FontAwesomeIcon icon={faMoneyBillWave} color="white"/>}>Financeiro</MenuItem>
+                            <MenuItem icon={<FontAwesomeIcon icon={faTicketAlt} color="white"/>}>Suporte</MenuItem>
+                            <MenuItem 
+                                icon={<FontAwesomeIcon icon={faDoorOpen} 
+
                                 color="white"/>}
                                 onClick={this.sair}
                             >Sair</MenuItem>
