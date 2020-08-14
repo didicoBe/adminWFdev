@@ -38,7 +38,7 @@ export default class VisualizarProjeto extends Component {
             })
             return resposta
         }else{
-            resposta = api.get('/login/'+login+'/'+token).then(response=>{
+            resposta = api.get('/login/valida/'+login+'/'+token).then(response=>{
                 this.setState({
                     logado: true,
                     nome:nome

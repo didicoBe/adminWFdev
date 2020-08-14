@@ -67,7 +67,7 @@ export default class Login extends Component {
             return resposta
 
         }else{
-            resposta = api.get('/login/'+login+'/'+token).then(response=>{
+            resposta = api.get('/login/valida/'+login+'/'+token).then(response=>{
                 this.setState({
                     logado: true,
                     nome:nome
@@ -123,7 +123,7 @@ export default class Login extends Component {
                     <img src="/img/LogoNEGATIVO2.png" className='imgLogin' alt="WfDev" />
                 </div>
                 <div className="centroLogin">
-                    <Card style={{ width: '25rem',boxShadow:'3px 3px 6px black'}}>
+                    <Card style={{width:300,boxShadow:'3px 3px 6px black'}}>
                         <Card.Body>
                             <Card.Title style={{textAlign:'center'}}>Admin</Card.Title>
                             <Card.Subtitle className="mb-2 text-muted" style={{textAlign:'left'}}>Login</Card.Subtitle>
