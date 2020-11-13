@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route} from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Login from "../src/components/paginas/login";
 import Dash from "../src/components/paginas/dash";
 import ConfigUser from "../src/components/paginas/configUser";
@@ -11,9 +11,14 @@ import Novocliente from "../src/components/paginas/clientes/novo";
 import Visualizarcliente from "../src/components/paginas/clientes/visualizar";
 import Projeto from "../src/components/paginas/projetos";
 import VisualizarProjeto from "../src/components/paginas/projetos/visualizar";
+
+import Suporte from "../src/components/paginas/suporte";
+
+const Routes = () => (
+=======
 import Meusdados from "./components/paginas/configUser/meusdados";
 
-const Routes = ()=>(
+
     <div>
         <BrowserRouter>
             <Switch>
@@ -29,9 +34,11 @@ const Routes = ()=>(
                 <Route exact path="/novocliente" component={Novocliente}></Route>
                 <Route exact path="/projeto/:idCliente" component={Projeto}></Route>
                 <Route exact path="/projeto/visualizar/:id" component={VisualizarProjeto}></Route>
+                <Route exact path="/suporte" component={Suporte}></Route>
             </Switch>
         </BrowserRouter>
     </div>
+
 );
 
 

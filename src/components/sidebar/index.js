@@ -24,16 +24,16 @@ export default class SideBar extends Component {
     sair = async()=>{
         const login = localStorage.getItem('login');
         const token = localStorage.getItem('token');
-        
+
        const retorno =  await api.get('/logout/'+login+'/'+token).then(response=>{
             //localStorage.clear();
             console.log(login)
             console.log(token)
             return true
-            
+
         }).catch(e=>{
-            
-            
+
+
             console.log(e);
             return false
         })
@@ -41,7 +41,7 @@ export default class SideBar extends Component {
         if(retorno){
             localStorage.clear();
             this.setState({sair:true})
-            
+
         }else{
             toast.error('🥺 Erro sair falar com os programadores', {
                 position: "top-center",
@@ -57,7 +57,7 @@ export default class SideBar extends Component {
 
 
 
-       
+
     }
 
 
@@ -74,7 +74,7 @@ export default class SideBar extends Component {
                 <div style={{marginRight:'270px'}} className="d-none d-md-block">
                     <ProSidebar >
                         <SidebarContent>
-                       
+
                         <Menu iconShape="square">
                             <MenuItem icon={<FontAwesomeIcon icon={faColumns} color="white"/>}>
                                 Dashboard
@@ -84,6 +84,14 @@ export default class SideBar extends Component {
                                 Clientes
                                 <Link to="/clientes" />
                             </MenuItem>
+
+                            <MenuItem icon={<FontAwesomeIcon icon={faTicketAlt} color="white"/>}>
+                                Suporte
+                                <Link to="/suporte" />
+                            </MenuItem>
+                            <MenuItem icon={<FontAwesomeIcon icon={faMoneyBillWave} color="white"/>}>Financeiro</MenuItem>
+=======
+
                             <SubMenu title="Orçamentos" icon={<FontAwesomeIcon icon={faWpforms} color="white"/>}>
                                 <MenuItem>
                                     <FontAwesomeIcon icon={faUsers} color="white" /> Todos
@@ -93,12 +101,16 @@ export default class SideBar extends Component {
                                     <FontAwesomeIcon icon={faUserEdit} color="white"/> Criar novo
                                     <Link to="/novoorcamento"/>
                                 </MenuItem>
-                                
+
                             </SubMenu>
+                            <MenuItem
+                                icon={<FontAwesomeIcon icon={faDoorOpen}
+=======
                             <MenuItem icon={<FontAwesomeIcon icon={faMoneyBillWave} color="white"/>}>Financeiro</MenuItem>
                             <MenuItem icon={<FontAwesomeIcon icon={faTicketAlt} color="white"/>}>Suporte</MenuItem>
                             <MenuItem 
                                 icon={<FontAwesomeIcon icon={faDoorOpen} 
+
                                 color="white"/>}
                                 onClick={this.sair}
                             >Sair</MenuItem>
@@ -109,13 +121,13 @@ export default class SideBar extends Component {
                                 <div style={{marginLeft:'10px'}}>Desenvolvido por WFDev</div>
                                 <div style={{marginLeft:'15px'}}><FontAwesomeIcon icon={faDoorOpen} color="white" onClick={this.sair}/></div>
                             </div>
-                            
+
                         </SidebarFooter>
                     </ProSidebar>
                 </div>
             )
         }
-        
+
     }
 }
 
